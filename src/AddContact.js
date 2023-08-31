@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { useHistory } from 'react-router-dom';
 class AddContact extends React.Component{
     state={
         name:"",
@@ -15,6 +15,9 @@ class AddContact extends React.Component{
         console.log(this.state)
         this.props.addContactHandler(this.state)
         this.setState({name:"", email:""})
+        // this.props.navigateTo("/");
+        // const history=useHistory();
+        // history.push("/")
 
     }
     render(){
@@ -41,3 +44,20 @@ class AddContact extends React.Component{
     }
 }
 export default AddContact;
+
+// import React,{useState,useEffect} from 'react'
+
+// const AddContact = () => {
+//     const [user,setUser] =useState("");
+//     setUser("vaish")
+
+//     useEffect(() => {
+
+//     }, [])
+
+//   return (
+//     <div>AddContact</div>
+//   )
+// }
+
+// export default AddContact

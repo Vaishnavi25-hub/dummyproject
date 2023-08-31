@@ -34,6 +34,14 @@ function App() {
   const addContactHandler = (contact) =>{
     console.log(contact)
     setContacts([...contacts,{id: uuid(), ...contact}])
+    fetch('http://localhost:3030/contact',{
+      method: 'post',
+      headers:  {
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify(contact)
+    })
+    .then(console.log("Contact Added"))
 
   }
 
@@ -44,6 +52,7 @@ function App() {
     })
     setContacts(newContactList);
   }
+
     useEffect(() => {
     const retriveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
     if (retriveContacts) setContacts(retriveContacts);
@@ -56,22 +65,15 @@ function App() {
 
   return (
     <div className='ui container'>
-     
-      <Header/>
-      <Router>
+     <Router>
+        <Header />
         <Routes>
-        <Route path="/" exact component={ContactList}></Route>
-          <Route path="/add"component={AddContact}/>
+          <Route path="/" element={<ContactList contacts={contacts} getContactId={removeContactHandler} />} />
           
+          <Route path="/add" element={<AddContact addContactHandler={addContactHandler} />} />
         </Routes>
       </Router>
-      {/* <AddContact addContactHandler={addContactHandler}/>
-      <ContactList contacts={contacts} getContactId={removeContactHandler}/> */}
-     
-      
     </div>
-    
-    
   );
 }
 
